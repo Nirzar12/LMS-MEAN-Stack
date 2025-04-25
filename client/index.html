@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="lmsApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="app.js"></script>
+    <script src="services/authService.js"></script>
+    <script src="controllers/loginController.js"></script>
+    <script src="controllers/courseController.js"></script>
+    <script src="controllers/addCourseController.js"></script>
+    <script src="controllers/registerController.js"></script>
+    <script src="controllers/myCoursesController.js"></script>
+    <script src="controllers/courseContentController.js"></script>
+    <script src="controllers/uploadContentController.js"></script>
+    <script src="controllers/logoutController.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-gradient-to-r from-indigo-100 via-blue-100 to-purple-100 text-gray-900" ng-controller="authController">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md p-2 rounded-md max-w-screen mx-auto flex justify-between items-center">
+      <div class="text-2xl ml-10 font-extrabold text-black">LMS-MEAN-STACK</div>
+      <ul class="flex gap-8">
+        <!-- Show Login and Register only if the user is not logged in -->
+        <li ng-if="!isLoggedIn">
+          <a href="#!/login" class="inline-block py-3 px-6 bg-black text-white text-lg rounded-lg shadow-md hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-black transition duration-300 ease-in-out">
+            Login
+          </a>
+        </li>
+        <li ng-if="!isLoggedIn">
+          <a href="#!/register" class="inline-block mr-16 py-3 px-6 bg-black text-white text-lg rounded-lg shadow-md hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-black transition duration-300 ease-in-out">
+            Register
+          </a>
+        </li>
+
+        <!-- Show My Courses and Add Course only if the user is logged in -->
+        <li ng-if="isLoggedIn">
+          <a href="#!/courses" class="text-black text-lg hover:bg-gray-200 px-4 py-2 rounded-lg transition duration-300 ease-in-out">Courses</a>
+        </li>
+        <li ng-if="isLoggedIn">
+          <a href="#!/my-courses" class="text-black text-lg hover:bg-gray-200 px-4 py-2 rounded-lg transition duration-300 ease-in-out">My Courses</a>
+        </li>
+        <li ng-if="isLoggedIn">
+          <a href="#!/add-course" class="text-black text-lg hover:bg-gray-200 px-4 py-2 rounded-lg transition duration-300 ease-in-out">Add Course (Admin Only)</a>
+        </li>
+        <li ng-if="isLoggedIn">
+          <a href="#!/upload-content" class="text-black text-lg hover:bg-gray-200 px-4 py-2 rounded-lg transition duration-300 ease-in-out">Upload Content (Admin Only)</a>
+        </li>
+        
+      </ul>
+
+      <!-- Logout Button -->
+      <button 
+        ng-if="isLoggedIn" 
+        ng-controller="logoutController" 
+        ng-click="logout()" 
+        class="bg-red-600 text-white mr-10 rounded-full py-3 px-8 text-lg font-semibold hover:bg-red-700 transition duration-300 ease-in-out"
+      >
+        Logout
+      </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="">
+      <div ng-view></div>
+    </div>
+
+       <!-- Footer -->
+       <footer class="bg-black text-white text-center py-4 mt-10">
+        <p class="text-md">© 2025 LMS-MEAN-STACK. All Rights Reserved.</p>
+        <p class="text-md">Developed by Nirzar-And-Team</p>
+      </footer>
+
+    <script>
+      // Auth Controller for Checking Login Status
+      angular.module('lmsApp').controller('authController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
+        // Function to check login status and update the view
+        function checkLoginStatus() {
+          $scope.isLoggedIn = localStorage.getItem('authToken') !== null;
+        }
+    
+        // Initialize the login status
+        checkLoginStatus();
+    
+        // Watch for changes in the localStorage (we use $apply to update the view)
+        $window.addEventListener('storage', function() {
+          $timeout(function() {
+            checkLoginStatus(); // Check login status after storage change
+          });
+        });
+    
+        // Ensure the view is updated on initial load too
+        $timeout(function() {
+          checkLoginStatus();
+        });
+      }]);
+    
+      // Logout Controller
+      angular.module('lmsApp').controller('logoutController', ['$scope', '$window', function($scope, $window) {
+        $scope.logout = function() {
+          // Remove authToken from localStorage on logout
+          localStorage.removeItem('authToken');
+          
+          // Update the login status without using $apply
+          $scope.isLoggedIn = false;
+          
+          // Redirect to login page
+          $window.location.href = '#!/login'; // Direct to login page
+        };
+      }]);
+    </script>
+
+  </body>
+</html>

@@ -7,6 +7,8 @@ const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/course');
 const enrollRoutes = require('./routes/enrollRoutes');
 const contentRoutes = require('./routes/contentRoutes');
+const myCoursesRoutes = require('./routes/myCourses');
+const stripeRoutes = require('./routes/stripe');
 
 const app = express();
 app.use(cors());
@@ -21,10 +23,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/enroll', enrollRoutes);
 app.use('/api/content', contentRoutes);
+app.use('/api/my-courses', myCoursesRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 
 
 app.use('/uploads', express.static('uploads'));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

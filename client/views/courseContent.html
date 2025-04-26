@@ -64,7 +64,7 @@
       <!-- Video Content -->
       <div ng-if="selectedContent.filePath.endsWith('.mp4')">
         <video controls class="w-full rounded-md border">
-          <source ng-src="http://localhost:5000/{{ selectedContent.filePath }}" type="video/mp4">
+          <source ng-src="http://localhost:5050/{{ selectedContent.filePath }}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
@@ -72,7 +72,7 @@
       <!-- Non-video Content -->
       <div ng-if="!selectedContent.filePath.endsWith('.mp4')" class="text-center mt-4">
         <a 
-          ng-href="http://localhost:5000/{{ selectedContent.filePath }}" 
+          ng-href="http://localhost:5050/{{ selectedContent.filePath }}" 
           target="_blank" 
           class="text-blue-600 hover:text-blue-800 underline text-lg font-medium"
         >

@@ -1,7 +1,7 @@
 // app.controller('myCoursesController', function($scope, $http) {
 //     $scope.myCourses = [];
 
-//     $http.get('http://localhost:5000/api/enroll/my', {
+//     $http.get('http://localhost:5050/api/enroll/my', {
 //       headers: {
 //         Authorization: 'Bearer ' + localStorage.getItem('authToken')
 //       }
@@ -16,7 +16,7 @@ app.controller("myCoursesController", function ($scope, $http, $location) {
 
   // Fetch enrolled courses for the student
   $http
-    .get("http://localhost:5000/api/enroll/my", {
+    .get("http://localhost:5050/api/enroll/my", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("authToken"),
       },

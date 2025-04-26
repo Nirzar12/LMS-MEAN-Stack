@@ -21,7 +21,7 @@ app.controller("courseContentController", function ($scope, $http,$window, $rout
 
   // Load content
   $http
-    .get(`http://localhost:5000/api/content/${courseId}`, {
+    .get(`http://localhost:5050/api/content/${courseId}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("authToken"),
       },

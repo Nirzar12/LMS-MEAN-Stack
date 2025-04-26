@@ -6,7 +6,7 @@ app.controller('uploadContentController', function($scope, $http,authService) {
       formData.append('title', $scope.title);
       formData.append('file', $scope.file);
   
-      $http.post('http://localhost:5000/api/content/upload', formData, {
+      $http.post('http://localhost:5050/api/content/upload', formData, {
         transformRequest: angular.identity,
         headers: {
           'Content-Type': undefined,

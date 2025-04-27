@@ -1,9 +1,9 @@
-app.controller('addCourseController', function($scope, $http, $location, authService) {
-  $scope.course = {}; // New course object
+app.controller('addCourseController', function($scope, $http, $location, authService,toastService) {
+  $scope.course = {}; 
 
   $scope.addCourse = function () {
     if (!$scope.course.title || !$scope.course.instructor || !$scope.course.description || !$scope.course.price) {
-      alert('Please fill all the fields including price.');
+      alert('❌ Please fill all fields including price!');
       return;
     }
 
@@ -13,7 +13,8 @@ app.controller('addCourseController', function($scope, $http, $location, authSer
       }
     }).then(function (res) {
       alert('✅ Course added successfully!');
-      $location.path('/courses'); // Redirect to course list
+      // 🔥 Redirect to upload-content page
+      $location.path('/upload-content');
     }).catch(function (err) {
       console.error('Error adding course:', err);
       alert('❌ Error: ' + (err.data?.message || 'Server error'));

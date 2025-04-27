@@ -1,56 +1,72 @@
-app.controller("courseContentController", function ($scope, $http,$window, $routeParams) {
-   // Redirect to login if the user is not authenticated
-   if (!localStorage.getItem("authToken")) {
+app.controller("courseContentController", function ($scope, $http, $window, $routeParams, $location, authService) {
+  if (!localStorage.getItem("authToken")) {
     $location.path("/login");
   }
+
+  const token = authService.getToken();
   const courseId = $routeParams.courseId;
   $scope.contents = [];
+  $scope.readContentIds = [];
   $scope.showModal = false;
   $scope.selectedContent = null;
-  $scope.contents.forEach(content => {
-    content.read = false; // default as unread
-  });
-  
-  $scope.toggleRead = function(content) {
-    content.read = !content.read;
-  };
+
+  // Go back function
   $scope.goBack = function() {
     $window.history.back();
   };
-   
 
-  // Load content
-  $http
-    .get(`http://localhost:5050/api/content/${courseId}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("authToken"),
-      },
-    })
-    .then(
-      function (res) {
-        // console.log("Course content data:", res.data); // Log the response
-
-        // Since res.data is an array, directly assign it to $scope.contents
-        if (Array.isArray(res.data)) {
-          // Update filePath to use forward slashes
-          $scope.contents = res.data.map(content => {
-            if (content.filePath) {
-              content.filePath = content.filePath.replace(/\\/g, '/'); // Replace backslashes with forward slashes
-            }
-            return content;
-          });
-        } else {
-          console.error("Expected an array but received:", res.data);
-          alert("No content found for this course.");
-        }
-      },
-      function (err) {
-        console.error("Failed to load content:", err); // Log error details
-        alert("Failed to load content.");
+  // Load all course contents
+  function loadContent() {
+    $http.get(`http://localhost:5050/api/content/${courseId}`, {
+      headers: { Authorization: "Bearer " + token },
+    }).then(function (res) {
+      if (Array.isArray(res.data)) {
+        $scope.contents = res.data.map(content => {
+          if (content.filePath) {
+            content.filePath = content.filePath.replace(/\\/g, '/');
+          }
+          return content;
+        });
+      } else {
+        console.error("Expected an array but received:", res.data);
+        alert("No content found for this course.");
       }
-    );
+    }).catch(function (err) {
+      console.error("Failed to load content:", err);
+      alert("Failed to load content.");
+    });
 
-  // Open Modal
+    // Load read statuses
+    $http.get(`http://localhost:5050/api/read-status/status/${courseId}`, {
+      headers: { Authorization: "Bearer " + token }
+    }).then(function (res) {
+      $scope.readContentIds = res.data;
+    }).catch(function (err) {
+      console.error("Failed to load read statuses:", err);
+    });
+  }
+
+  // Check if content is already read
+  $scope.isContentRead = function(contentId) {
+    return $scope.readContentIds.includes(contentId);
+  };
+
+  // Mark a content as read
+  $scope.markAsRead = function(contentId) {
+    $http.post('http://localhost:5050/api/read-status/mark', {
+      courseId,
+      contentId
+    }, {
+      headers: { Authorization: "Bearer " + token }
+    }).then(function () {
+      $scope.readContentIds.push(contentId); // Update UI immediately
+    }).catch(function (err) {
+      console.error("Error marking content as read:", err);
+      alert("Failed to mark content as read.");
+    });
+  };
+
+  // Modal Open
   $scope.openModal = function (content) {
     if (content) {
       $scope.selectedContent = content;
@@ -58,11 +74,12 @@ app.controller("courseContentController", function ($scope, $http,$window, $rout
     }
   };
 
-  // Close Modal
+  // Modal Close
   $scope.closeModal = function () {
     $scope.showModal = false;
     $scope.selectedContent = null;
   };
+
+  // Init
+  loadContent();
 });
-
-

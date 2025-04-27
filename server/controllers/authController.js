@@ -1,19 +1,16 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-// Generate JWT token
 const generateToken = (user) => {
   return jwt.sign(
     { userId: user._id, role: user.role },
-    process.env.JWT_SECRET, // Replace with env variable in production
+    process.env.JWT_SECRET,
     { expiresIn: "1h" }
   );
 };
 
-// Register user
 exports.register = async (req, res) => {
   const { email, password, role } = req.body;
-
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser)
@@ -27,10 +24,8 @@ exports.register = async (req, res) => {
   }
 };
 
-// Login user
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
@@ -40,8 +35,15 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
 
     const token = generateToken(user);
-    res.json({ token });
+
+    // ✅ Send token + role together
+    res.json({
+      token,
+      role: user.role   // 👈👈 send this too
+    });
+
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+

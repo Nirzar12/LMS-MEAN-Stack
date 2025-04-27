@@ -1,35 +1,35 @@
-<div class="max-w-2xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg">
-  <h2 class="text-3xl font-bold text-center text-indigo-700 mb-6">Upload Course Material</h2>
-
-  <form ng-submit="uploadContent()" enctype="multipart/form-data">
-      <!-- Course ID Input -->
-      <div class="mb-6">
-          <label for="courseId" class="block text-sm font-semibold text-gray-600 mb-2">Course ID</label>
-          <input id="courseId" type="text" ng-model="courseId" placeholder="Enter Course ID"
-              class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+<div class="max-w-3xl mx-auto mt-10 p-8 bg-white rounded-2xl shadow-lg space-y-8">
+    <h2 class="text-4xl font-bold text-center text-indigo-700">📤 Upload Course Content</h2>
+  
+    <form ng-submit="uploadContent()" enctype="multipart/form-data" class="space-y-6">
+      <!-- Course ID -->
+      <div>
+        <label class="block text-gray-700 font-semibold mb-2">Course ID</label>
+        <input type="text" ng-model="courseId" placeholder="Enter Course ID"
+          class="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required />
       </div>
-
-      <!-- Title Input -->
-      <div class="mb-6">
-          <label for="title" class="block text-sm font-semibold text-gray-600 mb-2">Title</label>
-          <input id="title" type="text" ng-model="title" placeholder="Enter Material Title"
-              class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+  
+      <!-- Title -->
+      <div>
+        <label class="block text-gray-700 font-semibold mb-2">Content Title</label>
+        <input type="text" ng-model="title" placeholder="Enter Content Title"
+          class="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required />
       </div>
-
-      <!-- File Upload Input -->
-      <div class="mb-6">
-          <label for="file" class="block text-sm font-semibold text-gray-600 mb-2">File (PDF/Video)</label>
-          <input id="file" type="file" file-model="file"
-              class="block w-full text-sm text-gray-600 file:border-0 file:bg-indigo-600 file:text-white file:px-4 file:py-2 file:rounded-md file:cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500">
+  
+      <!-- File Upload -->
+      <div>
+        <label class="block text-gray-700 font-semibold mb-2">Upload File (PDF/Video)</label>
+        <input type="file" file-model="file"
+          class="w-full text-gray-700 p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required />
       </div>
-
-      <!-- Submit Button -->
+  
+      <!-- Submit -->
       <div class="flex justify-center">
-          <button type="submit" class="w-full py-3 px-6 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300">
-              Upload
-          </button>
+        <button type="submit"
+          class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition">
+          ⬆️ Upload Content
+        </button>
       </div>
-  </form>
-</div>
-
+    </form>
+  </div>
   

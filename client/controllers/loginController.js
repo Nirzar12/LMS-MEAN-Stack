@@ -6,10 +6,12 @@ app.controller('loginController', function($scope, $http, $location, $rootScope,
       .then(response => {
         authService.setToken(response.data.token);
 
-        // 🔥 Notify the app that login state has changed
+        // 🔥 Ab yaha role store karo
+        const decodedToken = JSON.parse(atob(response.data.token.split('.')[1])); // Decode JWT
+        localStorage.setItem('userRole', decodedToken.role); // ✅ Correct
+
         $rootScope.$emit('authChanged');
 
-        // Redirect after login
         $location.path('/courses');
       })
       .catch(error => {
@@ -17,4 +19,4 @@ app.controller('loginController', function($scope, $http, $location, $rootScope,
       });
   };
 });
-  
+

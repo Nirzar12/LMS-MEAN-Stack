@@ -9,6 +9,7 @@ const enrollRoutes = require('./routes/enrollRoutes');
 const contentRoutes = require('./routes/contentRoutes');
 const myCoursesRoutes = require('./routes/myCourses');
 const stripeRoutes = require('./routes/stripe');
+const readStatusRoutes = require('./routes/readStatus');
 
 const app = express();
 app.use(cors());
@@ -25,6 +26,7 @@ app.use('/api/enroll', enrollRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/my-courses', myCoursesRoutes);
 app.use('/api/stripe', stripeRoutes);
+app.use('/api/read-status', readStatusRoutes);
 
 
 

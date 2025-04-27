@@ -30,8 +30,8 @@ router.post('/create-checkout-session', authenticate, async (req, res) => {
           quantity: 1,
         }],
         mode: 'payment',
-        success_url: `http://localhost:3000/#!/payment-success?courseId=${courseId}`, // ✅ #! important
-        cancel_url: `http://localhost:3000/#!/courses`,
+        success_url: `http://localhost:5500/client/#!/payment-success?courseId=${courseId}`, // ✅ #! important
+        cancel_url: `http://localhost:5500/client/#!/courses`,
       });
       
 

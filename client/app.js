@@ -19,7 +19,7 @@ app.config(function ($routeProvider) {
   $routeProvider
     .when("/", {
       template: `
-      <div class="flex flex-col items-center justify-center h-full text-center px-4 py-20 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
+      <div class="flex flex-col items-center min-h-screen justify-center h-full text-center px-4 py-20 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
         <h1 class="text-5xl md:text-6xl font-extrabold text-gray-800 mb-6 drop-shadow-sm">
           Welcome to <span class="text-purple-600">LMS</span>
         </h1>
@@ -89,63 +89,3 @@ app.directive('fileModel', ['$parse', function ($parse) {
   };
 }]);
 
-
-
-
-// const app = angular.module("lmsApp", ["ngRoute"]);
-
-// app.config(function ($routeProvider) {
-//   $routeProvider
-//     .when("/", {
-//       template: '<h1 class="text-3xl p-4">Welcome to LMS</h1>',
-//     })
-//     .when("/login", {
-//       templateUrl: "views/login.html",
-//       controller: "loginController",
-//     })
-//     .when("/courses", {
-//       templateUrl: "views/courses.html",
-//       controller: "courseController",
-//     })
-//     .when("/add-course", {
-//       templateUrl: "views/addCourse.html",
-//       controller: "addCourseController",
-//     })
-//     .when("/register", {
-//       templateUrl: "views/register.html",
-//       controller: "registerController",
-//     })
-//     .when("/my-courses", {
-//       templateUrl: "views/myCourses.html",
-//       controller: "myCoursesController",
-//     })
-//     .when('/upload-content', {
-//       templateUrl: 'views/uploadContent.html',
-//       controller: 'uploadContentController'
-//     })
-//     .when('/course/:courseId/content', {
-//       templateUrl: 'views/coursecontent.html',
-//       controller: 'courseContentController'
-//     })
-//     .when('/profile', {
-//       templateUrl: 'views/profile.html',
-//       controller: 'profileController'
-//     })
-//     .otherwise({ redirectTo: "/" });
-// });
-
-// app.directive('fileModel', ['$parse', function ($parse) {
-//   return {
-//     restrict: 'A',
-//     link: function(scope, element, attrs) {
-//       var model = $parse(attrs.fileModel);
-//       var modelSetter = model.assign;
-
-//       element.bind('change', function(){
-//         scope.$apply(function(){
-//           modelSetter(scope, element[0].files[0]);
-//         });
-//       });
-//     }
-//   };
-// }]);

@@ -1,54 +1,173 @@
-# 🎓 Learning Management System (LMS)
+# Learning Management System (LMS) – MEAN Stack
 
-This project is a **Learning Management System** that allows users to enroll in courses, make payments, and access course content. The system has features like rich design, user authentication, and course management for admins. 
-
-- 🖥️ **Frontend:** AngularJS (older version)  
-- ⚙️ **Backend:** Node.js  
-- 🔐 **Features:**
-  - User authentication (via JWT)
-  - Payment processing via Stripe
-  - Admin can add courses and course content
-  - Courses are stored in a MongoDB database
-  - Access to course content (PDFs, Videos) **only after payment and enrollment**
-  - Responsive, rich UI/UX design
+A full-featured Learning Management System built using the **MEAN Stack** (MongoDB, Express.js, AngularJS, Node.js). This platform allows admins to manage courses, students, assignments, and performance efficiently.
 
 ---
 
-## 🔑 Environment Variables
+## 📑 Table of Contents
 
-Create a `.env` file at the root of your project and include the following keys:
+* [Project Overview](#project-overview)
+* [Tech Stack](#tech-stack)
+* [Features](#features)
+* [Installation](#installation)
+* [Project Structure](#project-structure)
+* [API Endpoints](#api-endpoints)
+* [Screenshots](#screenshots)
+* [Methodology](#methodology)
+* [Future Improvements](#future-improvements)
+* [License](#license)
 
-```env
-MONGO_URI=<Your MongoDB Connection URI>
-PORT=5000
-JWT_SECRET=<Your JWT Secret>
-STRIPE_SECRET_KEY=<Your Stripe Secret Key>
-SAMPLE_ACCOUNT_NUMBER=4000003560000008
+---
+
+## 🚀 Project Overview
+
+This LMS enables administrators and students to manage the academic learning lifecycle:
+
+* Admins can add/update/delete courses, students, and assignments.
+* Students can view assigned courses and submit tasks.
+* Supports authentication, role-based access, and dynamic rendering using AngularJS.
+
+---
+
+## 💻 Tech Stack
+
+**Frontend**: AngularJS + Tailwind CSS
+**Backend**: Node.js + Express.js
+**Database**: MongoDB + Mongoose ODM
+**Testing**: Postman (API Testing)
+
+---
+
+## ✨ Features
+
+### Admin:
+
+* Register/login securely
+* Add, update, delete:
+
+  * Students
+  * Courses
+  * Assignments
+* View all records with filtering and searching
+
+### Student:
+
+* Register/login
+* View enrolled courses
+* View and submit assignments
+* Profile and dashboard
+
+### Common:
+
+* Role-based access control (RBAC)
+* Responsive UI with Tailwind CSS
+* Clean API structure for extensibility
+
+---
+
+## ⚙️ Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/Nirzar12/LMS-MEAN-Stack.git
+cd LMS-MEAN-Stack
+
+# Backend Setup
+cd backend
+npm install
+npm run dev
+
+# Frontend Setup
+cd ../frontend
+npm install
+npm start
+```
+
+Ensure MongoDB is running locally or configure the cloud URI in `.env`.
+
+---
+
+## 📁 Project Structure
+
+```
+LMS-MEAN-Stack/
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   └── server.js
+├── frontend/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   └── app.js
+└── README.md
 ```
 
 ---
 
-## 📂 File Access Post-Enrollment
+## 📡 API Endpoints
 
-- **Course Content** (PDFs, Videos) will be accessible **only after payment and successful course enrollment**.
-- Users who successfully enroll in a course via Stripe can download or view course materials such as PDFs and videos.
+> Base URL: `http://localhost:5000/api`
+
+### Authentication
+
+* `POST /auth/register`
+* `POST /auth/login`
+
+### Courses
+
+* `GET /courses`
+* `POST /courses`
+* `PUT /courses/:id`
+* `DELETE /courses/:id`
+
+### Students
+
+* `GET /students`
+* `POST /students`
+* `PUT /students/:id`
+* `DELETE /students/:id`
 
 ---
 
-## 🔁 Flow for Stripe Public Key
+## 🧪 Methodology
 
-```
-🧑‍💻 Client
-   ⬇️
-🧠 Controllers
-   ⬇️
-🎯 enrollCourse()
-   ⬇️
-🔑 Your Stripe Public Key
-```
-
-> 💳 This flow illustrates how the Stripe public key is accessed during course enrollment.
+* **Component-Based UI**: AngularJS MVC structure
+* **Modular REST API**: Reusable Express.js routing and middleware
+* **Database Design**: Normalized schema for scalability
+* **Security**: Password hashing (bcrypt), JWT-based authentication
+* **Testing**: Postman collections for each API route
 
 ---
 
-Let me know if you'd like to add any further details, such as API endpoints or how to interact with the database for courses/content!
+## 📷 Screenshots
+
+*Add screenshots here for Admin and Student dashboards, Course creation, etc.*
+
+---
+
+## 🌱 Future Improvements
+
+* Role-based dashboards with analytics
+* File upload for assignments
+* Notification system (email/SMS)
+* Integration with payment gateway (for course purchase)
+
+---
+
+## 🪪 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+### 👤 Author
+
+**Nirzar Diwan**
+[GitHub](https://github.com/Nirzar12) | [LinkedIn](https://linkedin.com/in/nirzar-diwan-105869281)
+
+---
+
+> Made with 💡 using MEAN Stack
